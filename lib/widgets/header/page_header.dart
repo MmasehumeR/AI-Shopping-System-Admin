@@ -1,6 +1,5 @@
+import 'package:aishop_admin/styles/custom_text.dart';
 import 'package:flutter/material.dart';
-
-import '../../styles/custom_text.dart';
 
 class PageHeader extends StatelessWidget {
   final String text;
