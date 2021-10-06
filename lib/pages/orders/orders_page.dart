@@ -63,8 +63,8 @@ class _OrdersPageState extends State<OrdersPage> {
                           });
                         })
                 ],
-                headers: tablesProvider.ordersTableHeader,
-                source: tablesProvider.ordersTableSource,
+                headers: tablesProvider.usersTableHeader,
+                source: tablesProvider.usersTableSource,
                 selecteds: tablesProvider.selecteds,
                 showSelect: tablesProvider.showSelect,
                 autoHeight: false,
