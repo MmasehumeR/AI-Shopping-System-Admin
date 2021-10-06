@@ -1,3 +1,4 @@
+import 'package:aishop_admin/widgets/charts/bar_chart_widget.dart';
 import 'package:aishop_admin/widgets/header/page_header.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,7 @@ class _AccuraciesPageState extends State<AccuraciesPage> {
           PageHeader(
             text: 'Accuracies',
           ),
+          BarChartSample1()
         ]));
   }
 }

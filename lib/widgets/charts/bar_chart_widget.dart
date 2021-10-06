@@ -28,96 +28,98 @@ class BarChartSample1State extends State<BarChartSample1> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        color: const Color(0xff81e5cd),
-        child: Stack(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
+    return Padding(
+        padding: EdgeInsets.fromLTRB(50, 20, 50, 10),
+        child: AspectRatio(
+          aspectRatio: 2,
+          child: Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(18)),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.black,
+                  Colors.black54,
+                ],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+              ),
+            ),
+            child: Center(
+              child: Stack(
                 children: <Widget>[
-                  Text(
-                    'Mingguan',
-                    style: TextStyle(
-                        color: const Color(0xff0f4a3c), fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  Text(
-                    'Grafik konsumsi kalori',
-                    style: TextStyle(
-                        color: const Color(0xff379982), fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 38,
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: BarChart(
-                        isPlaying ? randomData() : mainBarData(),
-                        swapAnimationDuration: animDuration,
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.all(50),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Text(
+                          'Decision Tree',
+                          style: TextStyle(
+                              color: const Color(0xffaa4cfc),
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          'Naive Bayes',
+                          style: TextStyle(
+                              color: const Color(0xff4af699),
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 38,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: BarChart(
+                              mainBarData(),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 12,
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  icon: Icon(
-                    isPlaying ? Icons.pause : Icons.play_arrow,
-                    color: const Color(0xff0f4a3c),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      isPlaying = !isPlaying;
-                      if (isPlaying) {
-                        refreshState();
-                      }
-                    });
-                  },
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   BarChartGroupData makeGroupData(
-      int x,
-      double y, {
-        bool isTouched = false,
-        Color barColor = Colors.white,
-        double width = 22,
-        List<int> showTooltips = const [],
-      }) {
+    int x,
+    double y, {
+    bool isTouched = false,
+    Color barColor = Colors.white,
+    double width = 22,
+    List<int> showTooltips = const [],
+  }) {
     return BarChartGroupData(
       x: x,
       barRods: [
         BarChartRodData(
           y: isTouched ? y + 1 : y,
-          colors: isTouched ? [Colors.yellow] : [barColor],
+          colors: isTouched ? [Colors.white] : [barColor],
           width: width,
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            y: 20,
-            colors: [barBackgroundColor],
+            y: 100,
+            colors: [
+              Color(0xffaa4cfc),
+              Color(0xffaa4cfc),
+              Color(0xff4af699),
+              Color(0xff4af699)
+            ],
           ),
         ),
       ],
@@ -125,26 +127,20 @@ class BarChartSample1State extends State<BarChartSample1> {
     );
   }
 
-  List<BarChartGroupData> showingGroups() => List.generate(7, (i) {
-    switch (i) {
-      case 0:
-        return makeGroupData(0, 5, isTouched: i == touchedIndex);
-      case 1:
-        return makeGroupData(1, 6.5, isTouched: i == touchedIndex);
-      case 2:
-        return makeGroupData(2, 5, isTouched: i == touchedIndex);
-      case 3:
-        return makeGroupData(3, 7.5, isTouched: i == touchedIndex);
-      case 4:
-        return makeGroupData(4, 9, isTouched: i == touchedIndex);
-      case 5:
-        return makeGroupData(5, 11.5, isTouched: i == touchedIndex);
-      case 6:
-        return makeGroupData(6, 6.5, isTouched: i == touchedIndex);
-      default:
-        return null;
-    }
-  });
+  List<BarChartGroupData> showingGroups() => List.generate(4, (i) {
+        switch (i) {
+          case 0:
+            return makeGroupData(0, 63.6905, isTouched: i == touchedIndex);
+          case 1:
+            return makeGroupData(1, 66.6666, isTouched: i == touchedIndex);
+          case 2:
+            return makeGroupData(2, 5, isTouched: i == touchedIndex);
+          case 3:
+            return makeGroupData(3, 7.5, isTouched: i == touchedIndex);
+          default:
+            return null;
+        }
+      });
 
   BarChartData mainBarData() {
     return BarChartData(
@@ -152,32 +148,23 @@ class BarChartSample1State extends State<BarChartSample1> {
         touchTooltipData: BarTouchTooltipData(
             tooltipBgColor: Colors.blueGrey,
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
-              String weekDay;
+              String model;
               switch (group.x.toInt()) {
                 case 0:
-                  weekDay = 'Monday';
+                  model = 'Decision Tree';
                   break;
                 case 1:
-                  weekDay = 'Tuesday';
+                  model = 'Decision Tree';
                   break;
                 case 2:
-                  weekDay = 'Wednesday';
+                  model = 'Naive Bayes';
                   break;
                 case 3:
-                  weekDay = 'Thursday';
-                  break;
-                case 4:
-                  weekDay = 'Friday';
-                  break;
-                case 5:
-                  weekDay = 'Saturday';
-                  break;
-                case 6:
-                  weekDay = 'Sunday';
+                  model = 'Naive Bayes';
                   break;
               }
-              return BarTooltipItem(
-                  weekDay + '\n' + (rod.y - 1).toString(), TextStyle(color: Colors.yellow));
+              return BarTooltipItem(model + '\n' + (rod.y - 1).toString(),
+                  TextStyle(color: Colors.white));
             }),
         touchCallback: (barTouchResponse) {
           setState(() {
@@ -195,25 +182,19 @@ class BarChartSample1State extends State<BarChartSample1> {
         show: true,
         bottomTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) =>
-          const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+          getTextStyles: (value) => const TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
           margin: 16,
           getTitles: (double value) {
             switch (value.toInt()) {
               case 0:
-                return 'M';
+                return 'Training';
               case 1:
-                return 'T';
+                return 'Testing';
               case 2:
-                return 'W';
+                return 'Training';
               case 3:
-                return 'T';
-              case 4:
-                return 'F';
-              case 5:
-                return 'S';
-              case 6:
-                return 'S';
+                return 'Testing';
               default:
                 return '';
             }
@@ -230,81 +211,62 @@ class BarChartSample1State extends State<BarChartSample1> {
     );
   }
 
-  BarChartData randomData() {
-    return BarChartData(
-      barTouchData: BarTouchData(
-        enabled: false,
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: SideTitles(
-          showTitles: true,
-          getTextStyles: (value) =>
-          const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
-          margin: 16,
-          getTitles: (double value) {
-            switch (value.toInt()) {
-              case 0:
-                return 'M';
-              case 1:
-                return 'T';
-              case 2:
-                return 'W';
-              case 3:
-                return 'T';
-              case 4:
-                return 'F';
-              case 5:
-                return 'S';
-              case 6:
-                return 'S';
-              default:
-                return '';
-            }
-          },
-        ),
-        leftTitles: SideTitles(
-          showTitles: false,
-        ),
-      ),
-      borderData: FlBorderData(
-        show: false,
-      ),
-      barGroups: List.generate(7, (i) {
-        switch (i) {
-          case 0:
-            return makeGroupData(0, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
-          case 1:
-            return makeGroupData(1, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
-          case 2:
-            return makeGroupData(2, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
-          case 3:
-            return makeGroupData(3, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
-          case 4:
-            return makeGroupData(4, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
-          case 5:
-            return makeGroupData(5, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
-          case 6:
-            return makeGroupData(6, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
-          default:
-            return null;
-        }
-      }),
-    );
-  }
-
-  Future<dynamic> refreshState() async {
-    setState(() {});
-    await Future<dynamic>.delayed(animDuration + const Duration(milliseconds: 50));
-    if (isPlaying) {
-      refreshState();
-    }
-  }
+  // BarChartData randomData() {
+  //   return BarChartData(
+  //     barTouchData: BarTouchData(
+  //       enabled: false,
+  //     ),
+  //     titlesData: FlTitlesData(
+  //       show: true,
+  //       bottomTitles: SideTitles(
+  //         showTitles: true,
+  //         getTextStyles: (value) => const TextStyle(
+  //             color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+  //         margin: 16,
+  //         getTitles: (double value) {
+  //           switch (value.toInt()) {
+  //             case 0:
+  //               return 'Decision Tree';
+  //             case 1:
+  //               return 'Decision Tree';
+  //             case 2:
+  //               return 'Naive Bayes';
+  //             case 3:
+  //               return 'Naive Bayes';
+  //             default:
+  //               return '';
+  //           }
+  //         },
+  //       ),
+  //       leftTitles: SideTitles(
+  //         showTitles: false,
+  //       ),
+  //     ),
+  //     borderData: FlBorderData(
+  //       show: false,
+  //     ),
+  //     barGroups: List.generate(4, (i) {
+  //       switch (i) {
+  //         case 0:
+  //           return makeGroupData(0, Random().nextInt(15).toDouble() + 6,
+  //               barColor: widget.availableColors[
+  //                   Random().nextInt(widget.availableColors.length)]);
+  //         case 1:
+  //           return makeGroupData(1, Random().nextInt(15).toDouble() + 6,
+  //               barColor: widget.availableColors[
+  //                   Random().nextInt(widget.availableColors.length)]);
+  //         case 2:
+  //           return makeGroupData(2, Random().nextInt(15).toDouble() + 6,
+  //               barColor: widget.availableColors[
+  //                   Random().nextInt(widget.availableColors.length)]);
+  //         case 3:
+  //           return makeGroupData(3, Random().nextInt(15).toDouble() + 6,
+  //               barColor: widget.availableColors[
+  //                   Random().nextInt(widget.availableColors.length)]);
+  //         default:
+  //           return null;
+  //       }
+  //     }),
+  //   );
+  // }
 }
