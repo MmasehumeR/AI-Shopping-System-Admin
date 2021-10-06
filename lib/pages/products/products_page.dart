@@ -15,7 +15,7 @@ class _ProductsPageState extends State<ProductsPage> {
   Widget build(BuildContext context) {
     final ProductsProvider productsProvider =
         Provider.of<ProductsProvider>(context);
-    return SingleChildScrollView(
+    return Container(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
@@ -23,7 +23,8 @@ class _ProductsPageState extends State<ProductsPage> {
           PageHeader(
             text: 'Products',
           ),
-          Container(
+          Expanded(
+              child: Container(
             margin: EdgeInsets.all(10),
             padding: EdgeInsets.all(0),
             constraints: BoxConstraints(
@@ -38,7 +39,9 @@ class _ProductsPageState extends State<ProductsPage> {
                     ? ElevatedButton.icon(
                         onPressed: () {},
                         icon: Icon(Icons.add),
-                        label: Text("ADD PRODUCT"))
+                        label: Text("ADD PRODUCT"),
+                        style: ElevatedButton.styleFrom(
+                            primary: Color(0xffaa4cfc)))
                     : null,
                 actions: [
                   if (productsProvider.isSearch)
@@ -117,7 +120,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 ],
               ),
             ),
-          ),
+          )),
         ]));
   }
 }
