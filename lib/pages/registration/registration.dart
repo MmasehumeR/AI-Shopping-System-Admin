@@ -14,7 +14,7 @@ class RegistrationPage extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [Colors.black87, Colors.grey[850]])),
+          gradient: LinearGradient(colors: [Colors.black, Colors.black87])),
       child: authProvider.status == Status.Authenticating
           ? Loading()
           : Scaffold(
@@ -117,6 +117,9 @@ class RegistrationPage extends StatelessWidget {
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: TextField(
                                       controller: authProvider.password,
+                                      obscureText: true,
+                                      enableSuggestions: false,
+                                      autocorrect: false,
                                       decoration: InputDecoration(
                                           border: InputBorder.none,
                                           hintText: 'Password',
