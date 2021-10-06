@@ -7,20 +7,40 @@ class UsersProvider with ChangeNotifier {
   List<DatatableHeader> usersTableHeader = [
     DatatableHeader(
         text: "ID",
-        value: "id",
+        value: "uid",
         show: true,
         sortable: true,
-        textAlign: TextAlign.left),
+        textAlign: TextAlign.center),
     DatatableHeader(
         text: "Name",
         value: "name",
         show: true,
         flex: 2,
         sortable: true,
-        textAlign: TextAlign.left),
+        textAlign: TextAlign.center),
+    DatatableHeader(
+        text: "Surname",
+        value: "surname",
+        show: true,
+        flex: 2,
+        sortable: true,
+        textAlign: TextAlign.center),
     DatatableHeader(
         text: "Email",
         value: "email",
+        show: true,
+        sortable: true,
+        textAlign: TextAlign.left),
+    DatatableHeader(
+        text: "Province",
+        value: "province",
+        show: true,
+        flex: 2,
+        sortable: true,
+        textAlign: TextAlign.center),
+    DatatableHeader(
+        text: "Birthday",
+        value: "birthday",
         show: true,
         sortable: true,
         textAlign: TextAlign.left),
@@ -58,6 +78,9 @@ class UsersProvider with ChangeNotifier {
         "uid": user.id,
         "name": user.name,
         "email": user.email,
+        "birthday": user.birthday,
+        "surname": user.surname,
+        "province": user.province,
       });
     }
     return temps;

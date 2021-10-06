@@ -1,4 +1,5 @@
 import 'package:aishop_admin/provider/tables.dart';
+import 'package:aishop_admin/provider/users_provider.dart';
 import 'package:aishop_admin/widgets/header/page_header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,7 @@ class _UsersPageState extends State<UsersPage> {
 
   @override
   Widget build(BuildContext context) {
-    final TablesProvider tablesProvider = Provider.of<TablesProvider>(context);
+    final UsersProvider usersProvider = Provider.of<UsersProvider>(context);
     return SingleChildScrollView(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -38,14 +39,14 @@ class _UsersPageState extends State<UsersPage> {
               shadowColor: Colors.black,
               clipBehavior: Clip.none,
               child: ResponsiveDatatable(
-                title: !tablesProvider.isSearch
+                title: !usersProvider.isSearch
                     ? ElevatedButton.icon(
                         onPressed: () {},
                         icon: Icon(Icons.add),
-                        label: Text("ADD CATEGORY"))
+                        label: Text("ADD USER"))
                     : null,
                 actions: [
-                  if (tablesProvider.isSearch)
+                  if (usersProvider.isSearch)
                     Expanded(
                         child: TextField(
                       decoration: InputDecoration(
@@ -53,46 +54,46 @@ class _UsersPageState extends State<UsersPage> {
                               icon: Icon(Icons.cancel),
                               onPressed: () {
                                 setState(() {
-                                  tablesProvider.isSearch = false;
+                                  usersProvider.isSearch = false;
                                 });
                               }),
                           suffixIcon: IconButton(
                               icon: Icon(Icons.search), onPressed: () {})),
                     )),
-                  if (!tablesProvider.isSearch)
+                  if (!usersProvider.isSearch)
                     IconButton(
                         icon: Icon(Icons.search),
                         onPressed: () {
                           setState(() {
-                            tablesProvider.isSearch = true;
+                            usersProvider.isSearch = true;
                           });
                         })
                 ],
-                headers: tablesProvider.usersTableHeader,
-                source: tablesProvider.usersTableSource,
-                selecteds: tablesProvider.selecteds,
-                showSelect: tablesProvider.showSelect,
+                headers: usersProvider.usersTableHeader,
+                source: usersProvider.usersTableSource,
+                selecteds: usersProvider.usersSelecteds,
+                showSelect: usersProvider.showSelect,
                 autoHeight: false,
                 onTabRow: (data) {
                   print(data);
                 },
-                onSort: tablesProvider.onSort,
-                sortAscending: tablesProvider.sortAscending,
-                sortColumn: tablesProvider.sortColumn,
-                isLoading: tablesProvider.isLoading,
-                onSelect: tablesProvider.onSelected,
-                onSelectAll: tablesProvider.onSelectAll,
+                onSort: usersProvider.onSort,
+                sortAscending: usersProvider.sortAscending,
+                sortColumn: usersProvider.sortColumn,
+                isLoading: usersProvider.isLoading,
+                onSelect: usersProvider.onSelected,
+                onSelectAll: usersProvider.onSelectAll,
                 footers: [
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Text("Rows per page:"),
                   ),
-                  if (tablesProvider.perPages != null)
+                  if (usersProvider.perPages != null)
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: DropdownButton(
-                          value: tablesProvider.currentPerPage,
-                          items: tablesProvider.perPages
+                          value: usersProvider.currentPerPage,
+                          items: usersProvider.perPages
                               .map((e) => DropdownMenuItem(
                                     child: Text("$e"),
                                     value: e,
@@ -103,19 +104,19 @@ class _UsersPageState extends State<UsersPage> {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Text(
-                        "${tablesProvider.currentPage} - ${tablesProvider.currentPage} of ${tablesProvider.total}"),
+                        "${usersProvider.currentPage} - ${usersProvider.currentPage} of ${usersProvider.total}"),
                   ),
                   IconButton(
                     icon: Icon(
                       Icons.arrow_back_ios,
                       size: 16,
                     ),
-                    onPressed: tablesProvider.previous,
+                    onPressed: usersProvider.previous,
                     padding: EdgeInsets.symmetric(horizontal: 15),
                   ),
                   IconButton(
                     icon: Icon(Icons.arrow_forward_ios, size: 16),
-                    onPressed: tablesProvider.next,
+                    onPressed: usersProvider.next,
                     padding: EdgeInsets.symmetric(horizontal: 15),
                   )
                 ],

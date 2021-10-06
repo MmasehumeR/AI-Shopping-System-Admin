@@ -6,12 +6,12 @@ import 'package:aishop_admin/provider/app_provider.dart';
 import 'package:aishop_admin/provider/auth.dart';
 import 'package:aishop_admin/provider/products_provider.dart';
 import 'package:aishop_admin/provider/tables.dart';
+import 'package:aishop_admin/provider/users_provider.dart';
 import 'package:aishop_admin/utils/costants.dart';
 import 'package:aishop_admin/widgets/layout/layout.dart';
 import 'package:aishop_admin/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 void main() {
   setupLocator();
@@ -20,6 +20,7 @@ void main() {
     ChangeNotifierProvider.value(value: AuthProvider.initialize()),
     ChangeNotifierProvider.value(value: TablesProvider.init()),
     ChangeNotifierProvider.value(value: ProductsProvider.init()),
+    ChangeNotifierProvider.value(value: UsersProvider.init()),
   ], child: MyApp()));
 }
 
