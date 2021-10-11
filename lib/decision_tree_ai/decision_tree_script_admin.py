@@ -160,10 +160,10 @@ for doc in users_docs:
                     str = uid + "|" + pid    #Using a pipe delimeter
                     recommended_products.append(str) #appending to recommendation list
 
-                    str = colored(pid, 'yellow') + "|" + colored(pid, 'green')
+                    str = colored(uid, 'yellow') + "|" + colored(pid, 'green')
                     print(str)
                 else:
-                    str = colored(pid, 'yellow') + "|" + colored(pid, 'red')
+                    str = colored(uid, 'yellow') + "|" + colored(pid, 'red')
                     print(str)
                
 
