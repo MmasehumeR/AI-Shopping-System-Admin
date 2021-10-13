@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_table/ResponsiveDatatable.dart';
 import 'package:responsive_table/responsive_table.dart';
+import 'addproducts.dart';
 
 class ProductsPage extends StatefulWidget {
   @override
@@ -36,7 +37,13 @@ class _ProductsPageState extends State<ProductsPage> {
               child: ResponsiveDatatable(
                 title: !productsProvider.isSearch
                     ? ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (BuildContext
+                                  context) =>
+                                      AddProduct()));
+                        },
                         icon: Icon(Icons.add),
                         label: Text("ADD PRODUCT"))
                     : null,
