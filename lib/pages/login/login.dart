@@ -3,12 +3,22 @@ import 'package:aishop_admin/navigation/routing/route_names.dart';
 import 'package:aishop_admin/provider/auth.dart';
 import 'package:aishop_admin/services/navigation_service.dart';
 import 'package:aishop_admin/styles/custom_text.dart';
+import 'package:aishop_admin/utils/costants.dart';
 import 'package:aishop_admin/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
+
 
 class LoginPage extends StatelessWidget {
     final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+
+    static const lightblack = Color(0xFF181818);
+
+    static const white = Color(0xFFFFFFFF);
+
+    String email;
 
   @override
   Widget build(BuildContext context) {
@@ -112,12 +122,60 @@ class LoginPage extends StatelessWidget {
 
                   Padding(
                     padding: const EdgeInsets.only(right:20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        CustomText(text: "Forgot password?", size: 16,color: Colors.grey,),
-                      ],
-                    ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                          onTap: (){
+                            Alert(
+                                context: context,
+                                title:
+                                "Enter email for password reset",
+                                content: Column(
+                                  children: <Widget>[
+                                    TextField(
+                                      decoration: InputDecoration(
+                                        labelText: 'E-mail',
+                                      ),
+                                      onChanged:(Email){
+                                        email = Email;
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                buttons: [
+                                  DialogButton(
+                                    onPressed: () {
+                                      auth.sendPasswordResetEmail(email: email);
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      "Send email",
+                                      style: TextStyle(
+                                          color: white, fontSize: 20),
+                                    ),
+                                    color: lightblack,
+                                  ),
+                                  DialogButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context),
+                                    child: Text(
+                                      "Cancel",
+                                      style: TextStyle(
+                                          color: white, fontSize: 20),
+                                    ),
+                                    color: lightblack,
+                                  )
+                                ]).show();
+                          },
+                              child: CustomText(
+                                text: "Forgot password?",
+                                size: 16,
+                                color: Colors.grey,
+                              )
+                          ),
+                        ],
+                      ),
                   ),
 
                   SizedBox(height: 40,),
