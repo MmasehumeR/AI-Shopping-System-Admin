@@ -47,8 +47,8 @@ feature_cols = ['Prod_Cat', 'User_Province', 'Clicks', 'Wishlist']
 X = pima[feature_cols]
 y = pima.Recommend
 
-#Here we split our dataset into training set (75%) and validation set (25%) - (regarded as test in the following line)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=1)
+#Here we split our dataset into training set (70%) and validation set (30%) - (Note that 'validation' in this case is regarded as 'test' in the following line)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
 
 #Note: Validation set will be used to Validate(test) our model and eventually calculate our Model accuracy before and after Pruning
 # --- but not to recommend...  
@@ -66,12 +66,6 @@ categoryJson =  '{"Books" : 1, "Shoes" : 2, "Clothing" : 3, "Tech" : 4, "Kitchen
 loadProvinceJ = json.loads(provinceJson)
    
 loadCategoryJ = json.loads(categoryJson)
-
-#Here we keep track of all trained entries for later purposes...(Avoid testing the exact entries we've trained)
-# thus avoiding returning large lists as well......
-with open('../../assets/decision_tree/decision_tree_data/Train_Data.csv','r') as file1:
-    trainedEntries = [line for line in csv.reader(file1, delimiter=',')]
-
 
 # %%
 #Here we are collecting all our products from the database (all documents in firebase)
@@ -105,11 +99,16 @@ for doc in users_docs:
     
     #    Province
     #
-    #Load the json value
-    for colD_doc in colDocs1:
-         province = colD_doc.get('province')
-         province = loadProvinceJ[province]
 
+    # Here we utilize the try, except statement to avoid the keyError exception from stopping our code from running... 
+    # When the user's province is not defined, a keyError exception occurs... we then continue to the next user...
+    try:
+        for colD_doc in colDocs1:
+            province = colD_doc.get('province')
+            province = loadProvinceJ[province] #Load the json value
+    except LookupError:
+        print(colored("Key error Exception Raised...... User Location not defined...", 'red'))
+        continue
     
     #Note that here we're only recommending to users with a defined location, if province is null, then no recommendations
     # the continue statement goes to the next user (iteration)... else : we iterate through every product in the database running 
@@ -148,23 +147,22 @@ for doc in users_docs:
         
             listTemp = [pid, category, uid, province, 'view', noOfClicks, wishlist] #Create test entry for this product to be run through the decision tree classifier....
 
-            if listTemp in trainedEntries : #Later purposes is now,lol, if this exact entery has been seen before in training, then don't test it
-                continue
+           
+            
+            #creating a dataframe from our entry to be able to run through the classifier...
+            test_data = pd.DataFrame([listTemp], columns=['Prod_ID', 'Prod_Cat', 'User_ID', 'User_Province', 'Event', 'Clicks', 'Wishlist']) 
+
+            y_predict = clf.predict(test_data[feature_cols]) #Get our 1(recommend) or 0(Do not recommend)
+
+            if(y_predict == 1):
+                str = uid + "|" + pid    #Using a pipe delimeter
+                recommended_products.append(str) #appending to recommendation list
+
+                str = colored(uid, 'yellow') + "|" + colored(pid, 'green')
+                print(str)
             else:
-                #creating a dataframe from our entry to be able to run through the classifier...
-                test_data = pd.DataFrame([listTemp], columns=['Prod_ID', 'Prod_Cat', 'User_ID', 'User_Province', 'Event', 'Clicks', 'Wishlist']) 
-
-                y_predict = clf.predict(test_data[feature_cols]) #Get our 1(recommend) or 0(Do not recommend)
-
-                if(y_predict == 1):
-                    str = uid + "|" + pid    #Using a pipe delimeter
-                    recommended_products.append(str) #appending to recommendation list
-
-                    str = colored(uid, 'yellow') + "|" + colored(pid, 'green')
-                    print(str)
-                else:
-                    str = colored(uid, 'yellow') + "|" + colored(pid, 'red')
-                    print(str)
+                str = colored(uid, 'yellow') + "|" + colored(pid, 'red')
+                print(str)
                
 
 

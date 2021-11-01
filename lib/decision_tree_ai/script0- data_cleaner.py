@@ -7,7 +7,6 @@ import pandas as pd
 from sklearn.tree import export_text
 from sklearn.tree import export_graphviz
 from six import StringIO 
-import csv
 from IPython.display import Image
 import pydotplus
 from termcolor import colored
@@ -189,7 +188,7 @@ X = pimas[feature_cols]
 y = pimas.Recommend
 
 #Here we split our dataset into training set and validation set(regarded as test in the following line)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=1) # 70% training and 30% validation
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1) # 70% training and 30% validation
 
 #Note: Validation set will be used to Validate(test) our model and eventually calculate our Model accuracy before and after Pruning
 # --- but not to recommend...  
@@ -230,18 +229,24 @@ for doc in users_docs:
     
     #    Province
     #
-    #Load the json value
-    for colD_doc in colDocs1:
-         province = colD_doc.get('province')
-         province = loadProvinceJ[province]
-
+    
+    # Here we utilize the try, except statement to avoid the keyError exception from stopping our code from running... 
+    # When the user's province is not defined, a keyError exception occurs... we then continue to the next user...
+    try:
+        for colD_doc in colDocs1:
+            province = colD_doc.get('province')
+            province = loadProvinceJ[province] #Load the json value
+    except LookupError:
+        print(colored("Key error Exception Raised...... User Location not defined...", 'red'))
+        continue
     
     #Note that here we're only recommending to users with a defined location, if province is null, then no recommendations
     # the continue statement goes to the next user (iteration)... else : we iterate through every product in the database running 
     # it through our decision tree algorithm and getting a prediction of that and that's what we'll use for recommendations.. 
     if province == '':
-        print("No recommendations for this user")
-    else:      
+        continue
+    else: 
+          
         for x in colDocs2:
             wishlistArr.append(x.id)
 
