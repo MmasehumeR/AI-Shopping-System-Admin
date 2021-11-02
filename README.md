@@ -53,5 +53,6 @@ The admin site will be used to monitor the performance of product recommendation
 
 # Future Scope
 * Functionality to choose which products to display to the user
+* Functionality to choose which recommendations to display to the user
 * Functionality to edit users orders
 * Functionality to confirm orders
