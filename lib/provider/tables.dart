@@ -35,33 +35,23 @@ class TablesProvider with ChangeNotifier {
         text: "ID",
         value: "id",
         show: true,
-        sortable: true,
-        textAlign: TextAlign.left),
-    DatatableHeader(
-        text: "Name",
-        value: "name",
-        show: true,
-        flex: 2,
-        sortable: true,
-        textAlign: TextAlign.left),
-    DatatableHeader(
-        text: "Description",
-        value: "description",
-        show: true,
+
         sortable: true,
         textAlign: TextAlign.left),
     DatatableHeader(
         text: "Quantity",
         value: "quantity",
         show: true,
+        flex: 2,
         sortable: true,
-        textAlign: TextAlign.left),
+        textAlign: TextAlign.center),
+
     DatatableHeader(
-        text: "Price",
-        value: "price",
+        text: "Date",
+        value: "date",
         show: true,
         sortable: true,
-        textAlign: TextAlign.left),
+        textAlign: TextAlign.center),
   ];
 
   List<DatatableHeader> productsTableHeader = [
@@ -223,7 +213,7 @@ class TablesProvider with ChangeNotifier {
     for (OrderModel order in _orders) {
       temps.add({
         "id": order.id,
-        "name": order.name,
+        "date": order.date,
         "description": order.description,
         "price": order.price,
         "quantity": order.quantity
@@ -232,6 +222,7 @@ class TablesProvider with ChangeNotifier {
         // "total": "\$${order.total}",
       });
     }
+    print("Temps size is : ${temps.length} ");
     return temps;
   }
 
