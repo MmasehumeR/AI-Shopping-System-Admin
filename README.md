@@ -7,20 +7,23 @@ Developed by: We don't byte
 # AI-Shopping-System-Admin
 Admin application written in dart with firebase implementation and trained machine learning algorithms.
 
-# Description
+# Description :
 AI Shopping System developed by "We don't byte" group is an e-commerce Web Application that allows users to shop online. Shoppers may purchase different types of items from the comfort of their home or any other place without physically visiting those stores. It allows users to buy items from multiple stores despite their location. AI Shopping System is an artificial intelligence website that will feed the customers eyes what they are most interested. It recommends products that the user might be interested in based on their interaction with the website.
 
 The admin site will be used to monitor the performance of product recommendation models, trigger models' training, view user website analytics, add/remove products and view all users of the system.
+
+# Documentation :
+* [Requirements Analysis Document](https://docs.google.com/document/d/1fOcOD5PfAJeSOr_vy4FCrDGsdkLrttcEqX3IggBki58/edit?usp=sharing)
+* [UML Diagrams](https://docs.google.com/document/d/1fOcOD5PfAJeSOr_vy4FCrDGsdkLrttcEqX3IggBki58/edit?usp=sharing)
+* [Daily Scrum](https://third-safflower-7c4.notion.site/Software-Design-Project-Daily-Scrum-d467bcafe4ad453a9ed90791aa2e3ff7)
+* [Tiaga wiki](https://tree.taiga.io/project/waffles-ai-shopping-system-v2/wiki/home)
+* [Github wiki](https://github.com/mmasehume/AI-Shopping-System-v2/wiki)
+
 
 # Admin Website link
 
 # User Website link
 
-# Documentation
-[Documentation](https://docs.google.com/document/d/1fOcOD5PfAJeSOr_vy4FCrDGsdkLrttcEqX3IggBki58/edit?usp=sharing)
-### Project Wiki's
-[Github wiki](https://github.com/mmasehume/AI-Shopping-System-v2/wiki) \
-[Tiaga wiki](https://tree.taiga.io/project/waffles-ai-shopping-system-v2/wiki/home)
 
 # FEATURES
 ## Admin Site
@@ -36,7 +39,7 @@ The admin site will be used to monitor the performance of product recommendation
 * Trigger button to force train models
 
 ## User Site
-[User Site](https://github.com/mmasehume/AI-Shopping-System-v2/blob/dev/README.md)
+* [User Site](https://github.com/mmasehume/AI-Shopping-System-v2/blob/dev/README.md)
 
 ## HOW TO USE THE ADMIN WEBSITE 
 
