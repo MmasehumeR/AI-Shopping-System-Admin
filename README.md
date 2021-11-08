@@ -35,6 +35,9 @@ The admin site will be used to monitor the performance of product recommendation
 * View AI models accuracies page
 * Trigger button to force train models
 
+## User Site
+[User Site](https://github.com/mmasehume/AI-Shopping-System-v2/blob/dev/README.md)
+
 ## HOW TO USE THE ADMIN WEBSITE 
 
 ### Loging and registration
