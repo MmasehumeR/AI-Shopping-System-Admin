@@ -2,7 +2,7 @@
 Developed by: We don't byte
 
 [![Build Status](https://app.travis-ci.com/mmasehume/AI-Shopping-System-Admin.svg?branch=master)](https://app.travis-ci.com/mmasehume/AI-Shopping-System-Admin)
-[![Coverage Status](https://coveralls.io/repos/github/mmasehume/AI-Shopping-System-Admin/badge.svg?branch=dev)](https://coveralls.io/github/mmasehume/AI-Shopping-System-Admin?branch=dev)
+[![Coverage Status](https://coveralls.io/repos/github/MmasehumeR/AI-Shopping-System-Admin/badge.svg?branch=dev)](https://coveralls.io/github/MmasehumeR/AI-Shopping-System-Admin?branch=dev)
 
 # AI-Shopping-System-Admin
 Admin application written in dart with firebase implementation and trained machine learning algorithms.
