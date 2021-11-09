@@ -72,7 +72,7 @@ class SideMenu extends StatelessWidget {
             ),
             SideMenuItem(
               icon: Icons.category,
-              text: 'Accuracies',
+              text: 'AI Models',
               active: appProvider.currentPage == DisplayedPage.CATEGORIES,
               onTap: () {
                 appProvider.changeCurrentPage(DisplayedPage.CATEGORIES);

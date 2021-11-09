@@ -1,12 +1,10 @@
-
-
 import 'package:aishop_admin/models/user.dart';
 import 'package:aishop_admin/utils/costants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserServices {
   String adminsCollection = "Admin";
-  String usersCollection = "Users";
+  String usersCollection = "users";
 
   void createAdmin({
     String id,
