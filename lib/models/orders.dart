@@ -1,3 +1,4 @@
+import 'package:aishop_admin/services/orders.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class OrderModel {
@@ -5,16 +6,18 @@ class OrderModel {
   static const NAME = "name";
   static const DESCRIPTION = "description";
   static const PRICE = "price";
+
   // static const USER_ID = "userId";
   static const QUANTITY = "stockamt";
   // static const STATUS = "status";
   // static const CREATED_AT = "createdAt";
 
-  String _id;
+  final String _id;
+  final String _Date;
   String _description;
   String _name;
   int _price;
-  int _quantity;
+  final int _quantity;
   // int _total;
 
 //  getters
@@ -22,7 +25,7 @@ class OrderModel {
 
   String get description => _description;
 
-  String get name => _name;
+  String get date => _Date;
 
   String get price => _price.toString();
 
@@ -33,13 +36,17 @@ class OrderModel {
   // public variable
   // List cart;
 
-  OrderModel.fromSnapshot(DocumentSnapshot snapshot) {
-    _id = snapshot.data()[ID].toString();
+
+    OrderModel.fromSnapshot(DocumentSnapshot snapshot, this._id,this._quantity,this._Date) {
+    //_id = snapshot.data()[ID].toString();
     _description = snapshot.data()[DESCRIPTION];
     _price = snapshot.data()[PRICE];
-    _quantity = snapshot.data()[QUANTITY];
-    _name = snapshot.data()[NAME].toString();
+   // _quantity =  snapshot.data()[QUANTITY];
+    _name =  snapshot.data()[NAME].toString();
+
+
     // _createdAt = snapshot.data()[CREATED_AT];
     // cart = snapshot.data()[CART];
   }
+
 }

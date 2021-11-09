@@ -1,3 +1,4 @@
+
 # AI-Shopping-System-Admin
 Developed by: We don't byte
 
@@ -12,12 +13,14 @@ AI Shopping System developed by "We don't byte" group is an e-commerce Web Appli
 
 The admin site will be used to monitor the performance of product recommendation models, trigger models' training, view user website analytics, add/remove products and view all users of the system.
 
+
 # Documentation :
 * [Requirements Analysis Document](https://docs.google.com/document/d/1fOcOD5PfAJeSOr_vy4FCrDGsdkLrttcEqX3IggBki58/edit?usp=sharing)
 * [UML Diagrams](https://docs.google.com/document/d/1fOcOD5PfAJeSOr_vy4FCrDGsdkLrttcEqX3IggBki58/edit?usp=sharing)
 * [Daily Scrum](https://third-safflower-7c4.notion.site/Software-Design-Project-Daily-Scrum-d467bcafe4ad453a9ed90791aa2e3ff7)
 * [Tiaga wiki](https://tree.taiga.io/project/waffles-ai-shopping-system-v2/wiki/home)
 * [Github wiki](https://github.com/mmasehume/AI-Shopping-System-v2/wiki)
+
 
 
 # Admin Website link
