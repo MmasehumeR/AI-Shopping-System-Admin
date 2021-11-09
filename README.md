@@ -65,3 +65,6 @@ The admin site will be used to monitor the performance of product recommendation
 * Functionality to choose which recommendations to display to the user
 * Functionality to edit users orders
 * Functionality to confirm orders
+* Functionality of the trigger button
+* Functionality to automate the process of csv file generation
+* Functionality to add new product to the database along with its image
