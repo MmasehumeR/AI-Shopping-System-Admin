@@ -7,7 +7,7 @@ class OrderServices {
   String collection = "Torders";
   Future<List<String>>ids;
   List<DocumentSnapshot>ods;
-
+int revenue=0;
  Future<List<OrderModel>> getAllOrders()  async{
    List<OrderModel> orders=[];
 
@@ -15,11 +15,13 @@ class OrderServices {
    for (DocumentSnapshot order in ans.docs){
      QuerySnapshot  ref=await firebaseFiretore.collection('Torders').doc(order.id).collection('Products').get();
      int size =ref.size;
-
      String date= DateFormat.yMMMd().add_jm().format(order.get('date').toDate()).toString();
 
+    for(DocumentSnapshot prod in ref.docs ){
+      revenue+=prod.data()['total'];
+    }
 
-     orders.add(OrderModel.fromSnapshot(order, order.id,size , date));
+     orders.add(OrderModel.fromSnapshot(order, order.id,size , date,revenue));
 
 
 
