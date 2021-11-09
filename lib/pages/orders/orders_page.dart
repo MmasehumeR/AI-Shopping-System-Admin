@@ -1,5 +1,6 @@
 import 'package:aishop_admin/provider/tables.dart';
 import 'package:aishop_admin/services/orders.dart';
+import 'package:aishop_admin/utils/costants.dart';
 import 'package:aishop_admin/widgets/header/page_header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +38,7 @@ class _OrdersPageState extends State<OrdersPage> {
               shadowColor: Colors.black,
               clipBehavior: Clip.none,
               child: ResponsiveDatatable(
-                title:null,
+                title: null,
                 actions: [
                   if (tablesProvider.isSearch)
                     Expanded(
@@ -67,40 +68,52 @@ class _OrdersPageState extends State<OrdersPage> {
                 selecteds: tablesProvider.selecteds,
                 showSelect: tablesProvider.showSelect,
                 autoHeight: false,
-
-                onTabRow: (data) async{
-                   double sum = 0.0;
-                   String userid;
-                   String name;
-                   String address;
-                   String email;
-                  CollectionReference usersRef=await FirebaseFirestore.instance
+                onTabRow: (data) async {
+                  double sum = 0.0;
+                  String userid;
+                  String name;
+                  String address;
+                  String email;
+                  CollectionReference usersRef = await FirebaseFirestore
+                      .instance
                       .collection('Torders')
                       .doc(data["id"])
                       .collection("Products");
-                 //update order total
-                  await  FirebaseFirestore.instance
-                       .collection("Torders")
-                       .doc(data["id"])
-                       .collection("Products")
-                       .get()
-                       .then((querySnapshot) {
-                     querySnapshot.docs.forEach((result) {
-                       sum += result.data()['total'];
-                       userid=result.data()['uid'];
-                     });
-                   });
-                  
-                  DocumentSnapshot ref=await FirebaseFirestore.instance
-                   .collection('Users')
-                   .doc(data["id"])
-                   .collection('info')
-                   .doc(data["id"])
-                   .get();
-                  name='${ref.data()['fname']} ${ref.data()['lname']}';
-                  address='${ref.data()['location']},${ref.data()['province']}';
-                  email=ref.data()['email'];
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => OrderModal(usersRef: usersRef , ordersum:sum,date:data["date"],orderid:data["id"],userid:userid,name: name,address: address,email:email)));
+                  //update order total
+                  await FirebaseFirestore.instance
+                      .collection("Torders")
+                      .doc(data["id"])
+                      .collection("Products")
+                      .get()
+                      .then((querySnapshot) {
+                    querySnapshot.docs.forEach((result) {
+                      sum += result.data()['total'];
+                      // print("sum :" + sum.toString());
+                      userid = result.data()['uid'];
+                    });
+                  });
+
+                  DocumentSnapshot ref = await FirebaseFirestore.instance
+                      .collection('Users')
+                      .doc(data["id"])
+                      .collection('info')
+                      .doc(data["id"])
+                      .get();
+
+                  name = '${ref.data()['fname']} ${ref.data()['lname']}';
+                  address =
+                      '${ref.data()['location']},${ref.data()['province']}';
+                  email = ref.data()['email'];
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => OrderModal(
+                          usersRef: usersRef,
+                          ordersum: sum,
+                          date: data["date"],
+                          orderid: data["id"],
+                          userid: userid,
+                          name: name,
+                          address: address,
+                          email: email)));
                 },
                 onSort: tablesProvider.onSort,
                 sortAscending: tablesProvider.sortAscending,

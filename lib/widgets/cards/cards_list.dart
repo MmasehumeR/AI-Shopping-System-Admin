@@ -1,6 +1,7 @@
 import 'package:aishop_admin/provider/app_provider.dart';
 import 'package:aishop_admin/provider/products_provider.dart';
 import 'package:aishop_admin/provider/tables.dart';
+import 'package:aishop_admin/utils/costants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class CardsList extends StatelessWidget {
     AppProvider appProvider = Provider.of<AppProvider>(context);
     TablesProvider tablesProvider = Provider.of<TablesProvider>(context);
     ProductsProvider productsProvider = Provider.of<ProductsProvider>(context);
+
     return Container(
       height: 120,
       child: Container(
@@ -22,7 +24,7 @@ class CardsList extends StatelessWidget {
               icon: Icons.monetization_on_outlined,
               title: "Revenue",
               subtitle: "Revenue this month",
-              value: "\R ${appProvider.revenue}",
+              value: "\R ${0}",
               color1: Colors.black,
               color2: Colors.black54,
             ),
