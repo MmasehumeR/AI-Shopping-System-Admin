@@ -1,11 +1,14 @@
 import 'dart:io';
+// import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:aishop_admin/widgets/header/page_header.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as Path;
+import 'package:rflutter_alert/rflutter_alert.dart';
+
 
 class AddProduct extends StatefulWidget {
   @override
@@ -16,13 +19,12 @@ class _AddProductState extends State<AddProduct> {
 
   static const lightblack = Color(0xFF181818);
   static const black = Color(0xFF000000);
-  // static const white = Color(0xFFFFFFFF);
 
-  // ignore: non_constant_identifier_names
-  String Name,Category,Description,Price,URL,productid;
-  String imageURL;
+  File _image;
+  final picker = ImagePicker();
+  String Name,Category,Description,URL,productid,Price,filepath;
 
-  additem(String name,String category,String description,String price,String URL) async {
+  additem(String name,String category,String description,int price,String URL) async {
 
     DateTime now = new DateTime.now();
     DateTime date = new DateTime(now.year, now.month, now.day, now.hour, now.minute);
@@ -37,7 +39,7 @@ class _AddProductState extends State<AddProduct> {
       'clicks': 0,
       'Purchased by': 0,
       'date': date,
-      // 'url' : imageURL.toString()
+      // 'url' : _image.path.toString()
       'url': URL
     }).then((value) => docRef.doc(value.id.toString()).update({
       'id' : value.id.toString()
@@ -45,32 +47,42 @@ class _AddProductState extends State<AddProduct> {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  File _image;
-
   Future getImage() async {
-    ImagePicker picker = ImagePicker();
-    PickedFile pickedFile;
-      // ignore: deprecated_member_use
-      pickedFile = await picker.getImage(
-        source: ImageSource.gallery,);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
     setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
+      _image = File(pickedFile.path);
     });
   }
-  upload(String category){
-    FirebaseStorage storageReference = FirebaseStorage.instance;
-    storageReference.ref()
-        .child("Clothes/${Path.basename(_image.path)}")
-        .putFile(_image).onError((error, stackTrace) => null);
-          // .then((myimage) => myimage.ref.getDownloadURL()
-          //   .then((valueURL) => imageURL = valueURL));
-  //   if(imageURL!=null){
-  //     dynamic key=CreateCryptoRandomString(32);
-  //   }
+
+  Future uploadImage(String Category, String Name) async {
+    final path = '$Category/$Name';
+        FirebaseStorage.instance
+        .refFromURL('gs://we-don-t-byte---ass.appspot.com')
+        .child(path)
+        .putFile(_image).then((value) =>
+        URL = value.ref.getDownloadURL().toString()
+        );
+  }
+
+  Future<void> showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Successfully Added'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -87,20 +99,28 @@ class _AddProductState extends State<AddProduct> {
             PageHeader(
               text: 'Add New Product',
             ),
-            // InkWell(
-            //     child: Container(
-            //       child: (imageURL != null)
-            //           ? Image.network(imageURL)
-            //           : Image.asset(
-            //         'images/add.png',
-            //       ),
-            //       width: 100,
-            //       height: 100,
-            //     ),
-            //     onTap:(){
-            //       getImage();
-            //     }
-            // ),
+            InkWell(
+                child: (_image == null) ?
+                   Container(
+                      width: 100,
+                      height: 100,
+                      child : ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),//add border radius here
+                      child: Image.asset('images/add.png')
+                      )
+                   )
+                    : Container(
+                        width: 100,
+                        height: 100,
+                        child : ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),//add border radius here
+                            child: Image.asset('images/added.jpg')
+                        )
+                      ),
+                onTap:(){
+                  getImage();
+                }
+            ),
             SizedBox(height: 20.0,),
             Container(
               margin: EdgeInsets.only(
@@ -205,6 +225,7 @@ class _AddProductState extends State<AddProduct> {
                           width: 450,
                           height: 50,
                           child: TextFormField(
+                            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                             onChanged: (theprice) {
                               Price = theprice;
                             },
@@ -291,6 +312,7 @@ class _AddProductState extends State<AddProduct> {
                           width: 450,
                           height: 50,
                           child: TextFormField(
+                            // hintText: _image.path.toString(),
                             onChanged: (theurl) {
                              URL = theurl;
                             },
@@ -318,14 +340,15 @@ class _AddProductState extends State<AddProduct> {
                 )),
 
             SizedBox(height: 15,),
+
             Container(
               child: ElevatedButton(
                   child: Text('Add'),
                   onPressed: () {
-                    // upload(Category);
-                    additem(Name,Category,Description,Price,URL);
+                    uploadImage(Category,Name);
+                    additem(Name,Category,Description,int.parse(Price),URL);
                     Navigator.of(context).pop();
-                    SnackBar(content:Text('Successfully Added'));
+                    showMyDialog();
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.black,)

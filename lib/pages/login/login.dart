@@ -9,7 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+class hidepassword extends StatefulWidget {
+  @override
+  _hidepasswordState createState() => _hidepasswordState();
+}
 
+class _hidepasswordState extends State<hidepassword> {
+
+  @override
+  Widget build(BuildContext context) {
+
+  }
+}
 
 class LoginPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
@@ -19,10 +30,55 @@ class LoginPage extends StatelessWidget {
   static const white = Color(0xFFFFFFFF);
 
   String email;
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
+
+    forgotpassword(){
+      return Alert(
+          context: context,
+          title:
+          "Enter email for password reset",
+          content: Column(
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'E-mail',
+                ),
+                onChanged:(Email){
+                  email = Email;
+                },
+              ),
+            ],
+          ),
+          buttons: [
+            DialogButton(
+              onPressed: () {
+                auth.sendPasswordResetEmail(email: email);
+                Navigator.pop(context);
+              },
+              child: Text(
+                "Send email",
+                style: TextStyle(
+                    color: white, fontSize: 20),
+              ),
+              color: lightblack,
+            ),
+            DialogButton(
+              onPressed: () =>
+                  Navigator.pop(context),
+              child: Text(
+                "Cancel",
+                style: TextStyle(
+                    color: white, fontSize: 20),
+              ),
+              color: lightblack,
+            )
+          ]).show();
+
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -108,11 +164,12 @@ class LoginPage extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.only(left:8.0),
                               child: TextField(
+                                obscureText: _isObscure,
                                 controller: authProvider.password,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: 'Password',
-                                    icon: Icon(Icons.lock_open)
+                                    icon: Icon(Icons.lock_open),
                                 ),
                               ),
                             ),
@@ -127,47 +184,8 @@ class LoginPage extends StatelessWidget {
                             children: [
                               GestureDetector(
                                   onTap: (){
-                                    Alert(
-                                        context: context,
-                                        title:
-                                        "Enter email for password reset",
-                                        content: Column(
-                                          children: <Widget>[
-                                            TextField(
-                                              decoration: InputDecoration(
-                                                labelText: 'E-mail',
-                                              ),
-                                              onChanged:(Email){
-                                                email = Email;
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                        buttons: [
-                                          DialogButton(
-                                            onPressed: () {
-                                              auth.sendPasswordResetEmail(email: email);
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text(
-                                              "Send email",
-                                              style: TextStyle(
-                                                  color: white, fontSize: 20),
-                                            ),
-                                            color: lightblack,
-                                          ),
-                                          DialogButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context),
-                                            child: Text(
-                                              "Cancel",
-                                              style: TextStyle(
-                                                  color: white, fontSize: 20),
-                                            ),
-                                            color: lightblack,
-                                          )
-                                        ]).show();
-                                  },
+                                    forgotpassword();
+                                    },
                                   child: CustomText(
                                     text: "Forgot password?",
                                     size: 16,

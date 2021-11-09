@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_table/ResponsiveDatatable.dart';
 import 'package:responsive_table/responsive_table.dart';
-import 'addproducts.dart';
+import 'additems.dart';
 
 class ProductsPage extends StatefulWidget {
   @override
