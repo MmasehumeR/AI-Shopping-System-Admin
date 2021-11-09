@@ -7,10 +7,8 @@ class OrderModel {
   static const DESCRIPTION = "description";
   static const PRICE = "price";
 
-  // static const USER_ID = "userId";
+  
   static const QUANTITY = "stockamt";
-  // static const STATUS = "status";
-  // static const CREATED_AT = "createdAt";
 
   final String _id;
   final String _Date;
