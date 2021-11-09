@@ -1,7 +1,7 @@
 # AI-Shopping-System-Admin
 Developed by: We don't byte
 
-[![Build Status](https://app.travis-ci.com/mmasehume/AI-Shopping-System-Admin.svg?branch=master)](https://app.travis-ci.com/mmasehume/AI-Shopping-System-Admin)
+[![Build Status](https://app.travis-ci.com/MmasehumeR/AI-Shopping-System-Admin.svg?branch=dev)](https://app.travis-ci.com/MmasehumeR/AI-Shopping-System-Admin)
 [![Coverage Status](https://coveralls.io/repos/github/MmasehumeR/AI-Shopping-System-Admin/badge.svg?branch=dev)](https://coveralls.io/github/MmasehumeR/AI-Shopping-System-Admin?branch=dev)
 
 # AI-Shopping-System-Admin
