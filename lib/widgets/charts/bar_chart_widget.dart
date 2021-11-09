@@ -1,7 +1,10 @@
-import 'dart:ui';
-
+import 'dart:async';
+import 'dart:math';
+// ignore: unnecessary_import
+//import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 
 class AccuracyChart extends StatefulWidget {

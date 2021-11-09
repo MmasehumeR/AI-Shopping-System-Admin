@@ -2,9 +2,11 @@ import 'package:aishop_admin/models/orders.dart';
 import 'package:aishop_admin/models/products_model.dart';
 import 'package:aishop_admin/services/orders.dart';
 import 'package:aishop_admin/services/product_service.dart';
+import 'package:aishop_admin/utils/costants.dart';
 import 'package:flutter/material.dart';
 // import 'package:intl/intl.dart';
 import 'package:responsive_table/DatatableHeader.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TablesProvider with ChangeNotifier {
   // ANCHOR table headers
@@ -120,7 +122,24 @@ class TablesProvider with ChangeNotifier {
         textAlign: TextAlign.left),
   ];
   List<int> perPages = [5, 10, 15, 100];
-  int total = 100;
+  int total = 0;
+  void getrevenue() async{
+    int revenue=0;
+    QuerySnapshot ans = await firebaseFiretore.collection('Torders').get();
+    for (DocumentSnapshot order in ans.docs) {
+      QuerySnapshot ref = await firebaseFiretore.collection('Torders')
+          .doc(order.id)
+          .collection('Products')
+          .get();
+      int size = ref.size;
+      for (DocumentSnapshot prod in ref.docs) {
+        total += prod.data()['total'];
+      }
+    }
+
+  }
+
+  int revenue=0;
   int currentPerPage;
   int currentPage = 1;
   bool isSearch = false;
@@ -162,6 +181,7 @@ class TablesProvider with ChangeNotifier {
     // _users = await _userServices.getAllUsers();
     _orders = await _orderServices.getAllOrders();
     _products = await _productsServices.getAllProducts();
+    await getrevenue();
     // _brands = await _brandsServices.getAll();
     // _categories = await _categoriesServices.getAll();
   }
@@ -208,23 +228,30 @@ class TablesProvider with ChangeNotifier {
   //   return temps;
   // }
 
+
   List<Map<String, dynamic>> _getOrdersData() {
     List<Map<String, dynamic>> temps = List<Map<String, dynamic>>.empty(growable: true);
     for (OrderModel order in _orders) {
+
       temps.add({
         "id": order.id,
         "date": order.date,
         "description": order.description,
         "price": order.price,
         "quantity": order.quantity
+
         // "createdAt": DateFormat.yMMMd()
         //     .format(DateTime.fromMillisecondsSinceEpoch(order.createdAt)),
         // "total": "\$${order.total}",
       });
+      //rev.add(order.price);
     }
+
+
     print("Temps size is : ${temps.length} ");
     return temps;
   }
+
 
   // List<Map<String, dynamic>> _getProductsData() {
   //   List<Map<String, dynamic>> temps = List<Map<String, dynamic>>.empty(growable: true);

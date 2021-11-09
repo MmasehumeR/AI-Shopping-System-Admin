@@ -14,6 +14,7 @@ class OrderModel {
 
   final String _id;
   final String _Date;
+  final int total;
   String _description;
   String _name;
   int _price;
@@ -37,7 +38,7 @@ class OrderModel {
   // List cart;
 
 
-    OrderModel.fromSnapshot(DocumentSnapshot snapshot, this._id,this._quantity,this._Date) {
+    OrderModel.fromSnapshot(DocumentSnapshot snapshot, this._id,this._quantity,this._Date,this.total) {
     //_id = snapshot.data()[ID].toString();
     _description = snapshot.data()[DESCRIPTION];
     _price = snapshot.data()[PRICE];
